@@ -2,7 +2,8 @@
 
 const { retrieveContainerName, retrieveEntityName, retrieveUDA, retrieveUDF, retrieveIndexes } = require('./helpers/generalHelper'); 
 const { getTableStatement } = require('./helpers/tableHelper');
-const { getUserDefinedTypes, getUdtMap, getUdtScripts } = require('./helpers/udtHelper');
+const { getUdf } = require('./helpers/udfHelper');
+const { getUdtMap, getUdtScripts } = require('./helpers/udtHelper');
 const { getIndexes } = require('./helpers/indexHelper');
 const { getKeyspaceStatement } = require('./helpers/keyspaceHelper');
 
@@ -37,8 +38,8 @@ module.exports = {
 				udtTypeMap
 			});
 			const indexes = getIndexes(retrieveIndexes(data.entityData), dataSources, entityName, containerName);
-			const UDF = getUserDefinedFunctions(retrieveUDF(data.containerData));
-			const UDA = getUserDefinedAggregations(retrieveUDA(data.containerData));
+			const UDF = getUserDefinedFunctions(retrieveUDF(data.containerData), containerName);
+			const UDA = getUserDefinedAggregations(retrieveUDA(data.containerData), containerName);
 
 			const cqlScript = getScript([
 				keyspace,
@@ -75,8 +76,8 @@ module.exports = {
 				externalDefinitions
 			], generalUdtTypeMap);
 
-			const UDF = getUserDefinedFunctions(retrieveUDF(containerData));
-			const UDA = getUserDefinedAggregations(retrieveUDA(containerData));
+			const UDF = getUserDefinedFunctions(retrieveUDF(containerData), containerName);
+			const UDA = getUserDefinedAggregations(retrieveUDA(containerData), containerName);
 
 			cqlScriptData.push(
 				keyspace,
@@ -126,8 +127,8 @@ const getScript = (structure) => {
 	return structure.filter(item => item).join('\n\n');
 };
 
-const getUserDefinedFunctions = (udfItems) => {
-	return udfItems.map(item => item.storedProcFunction).filter(item => item).join('\n');
+const getUserDefinedFunctions = (udfItems, containerName) => {
+	return udfItems.map(item => getUdf(containerName, item)).filter(Boolean).join('\n\n');
 };
 
 const getUserDefinedAggregations = (udaItems) => {

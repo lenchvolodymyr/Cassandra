@@ -172,10 +172,48 @@ making sure that you maintain a proper JSON format.
 					"template": "textarea"
 				},
 				{
-					"propertyName": "Function",
+					"propertyName": "Replace",
+					"propertyKeyword": "replace",
+					"shouldValidate": false,
+					"propertyType": "checkbox"
+				},
+				{
+					"propertyName": "Parameters",
+					"propertyKeyword": "parameters",
+					"shouldValidate": false,
+					"propertyType": "details",
+					"template": "textarea"
+				},
+				{
+					"propertyName": "On null input",
+					"propertyKeyword": "onNullInput",
+					"shouldValidate": false,
+					"propertyTooltip": "",
+					"propertyType": "select",
+					"options": [
+						"CALLED",
+						"RETURNS NULL"
+					]
+				},
+				{
+					"propertyName": "Return type",
+					"propertyKeyword": "returnType",
+					"shouldValidate": false,
+					"propertyTooltip": "",
+					"propertyType": "text"
+				},
+				{
+					"propertyName": "Language",
+					"propertyKeyword": "language",
+					"shouldValidate": false,
+					"propertyTooltip": "",
+					"propertyType": "text"
+				},
+				{
+					"propertyName": "Code block",
 					"propertyKeyword": "storedProcFunction",
 					"shouldValidate": false,
-					"propertyTooltip": "description",
+					"propertyTooltip": "",
 					"propertyType": "details",
 					"template": "textarea"
 				},
