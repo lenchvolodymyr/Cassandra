@@ -1,0 +1,12 @@
+{
+  "name": "Datastax",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Hackolade",
+  "dependencies": {
+    "async": "^2.6.0",
+    "lodash": "^4.17.15"
+  },
+  "type": "file",
+  "installed": true
+}
